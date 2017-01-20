@@ -48,62 +48,63 @@ def form_dictionary(word_set):
             dict_nary[key_value].append(word_set[i + key_size])
         else:
             dict_nary[key_value] = [word_set[i], word_set[i + key_size]]
-            for keys_items in dict_nary.keys():
-                print(keys_items, ":", dict_nary[keys_items])
+    for keys_items in dict_nary.keys():
+        print("key Item: ", keys_items, ":", dict_nary[keys_items])
+
     return dict_nary
 
 
 def form_sonnett_string(dict_nary, word_set):
-    rand_int = random.randint(0, len(word_set) - key_size - 1)
-    initial_key = word_set[rand_int]
+    rand_int=random.randint(0, len(word_set) - key_size - 1)
+    initial_key=word_set[rand_int]
     for j in range(1, key_size):
         initial_key += word_set[rand_int + j]
     print("random integer %s  initial key  %s word_set1  %s   word_set2  %s" %
           (rand_int, initial_key, word_set[rand_int], word_set[rand_int + 1]))
 
-    todays_date = date.today().strftime("%A %d. %B %Y")
+    todays_date=date.today().strftime("%A %d. %B %Y")
 
 
 # form sonnett character string & write a line of sonnett
 
-    sonnett_string = initial_key
+    sonnett_string=initial_key
     print(" sonnett string", sonnett_string)
     with open(output_file, "a") as sonnet_line:
         sonnet_line.writelines("Sonnett for Pat  " + todays_date + '\n')
         sonnet_line.writelines("" + '\n')
 
-    num_lines = 0
+    num_lines=0
     while num_lines <= 13:
         while len(sonnett_string) <= 50:
-            new_word_set = dict_nary[initial_key]
+            new_word_set=dict_nary[initial_key]
             print("new word set", new_word_set)
-            random_integer = random.randint(1, len(new_word_set) - 1)
-            new_word = new_word_set[random_integer]
+            random_integer=random.randint(1, len(new_word_set) - 1)
+            new_word=new_word_set[random_integer]
             print(" random integer new word", random_integer, new_word)
             sonnett_string += new_word
             print("sonnet_string", sonnett_string)
-            new_key = initial_key + new_word
+            new_key=initial_key + new_word
             print("new_key", new_key)
-            initial_key = new_key[len(new_word_set[0]):len(new_key)]
+            initial_key=new_key[len(new_word_set[0]):len(new_key)]
             print("initial_key", initial_key)
         else:
             with open(output_file, "a") as sonnet_line:
                 sonnet_line.writelines(sonnett_string + '\n')
                 print("sonnet_line", sonnet_line)
                 num_lines += 1
-                sonnett_string = ""
+                sonnett_string=""
                 print("initial key   ", initial_key)
                 print("number of lines  ", num_lines)
     return
 
 
 def write_sonnett(input_file, output_file):
-    str_value = read_text_file(input_file)
-    word_set = form_word_list(str_value)
-    dict_nary = form_dictionary(word_set)
+    str_value=read_text_file(input_file)
+    word_set=form_word_list(str_value)
+    dict_nary=form_dictionary(word_set)
     form_sonnett_string(dict_nary, word_set)
     return
-input_file = "Sonnetts-large.txt"
-output_file = "markov_sonnet.txt"
-key_size = 2
+input_file="Sonnetts-large.txt"
+output_file="markov_sonnet.txt"
+key_size=1
 write_sonnett(input_file, output_file)

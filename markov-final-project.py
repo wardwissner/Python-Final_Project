@@ -55,7 +55,7 @@ def form_dictionary(word_set):
 
 
 def form_sonnett_string(dict_nary, word_set):
-    rand_int=random.randint(0, len(word_set) - key_size - 1)
+    rand_int = random.randint(0, len(word_set) - key_size - 1)
     initial_key=word_set[rand_int]
     for j in range(1, key_size):
         initial_key += word_set[rand_int + j]
@@ -74,7 +74,7 @@ def form_sonnett_string(dict_nary, word_set):
         sonnet_line.writelines("" + '\n')
 
     num_lines=0
-    while num_lines <= 13:
+    while num_lines <= markov_output_lines:
         while len(sonnett_string) <= 50:
             new_word_set=dict_nary[initial_key]
             print("new word set", new_word_set)
@@ -106,5 +106,7 @@ def write_sonnett(input_file, output_file):
     return
 input_file="Sonnetts-large.txt"
 output_file="markov_sonnet.txt"
-key_size=1
+key_size=2
+markov_output_lines=13
 write_sonnett(input_file, output_file)
+

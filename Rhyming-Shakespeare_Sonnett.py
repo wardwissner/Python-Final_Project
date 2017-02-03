@@ -27,23 +27,26 @@ def read_text_file(input_file):
     char_len = 0
     char_len_sq =0
     with open(input_file,"r") as read_me:
-        for line in read_me:
-           num_lines  += 1
-           last_str_value = line
-           char_len += len(last_str_value)
-           char_len_sq += len(last_str_value)**2
-           last_str_value = last_str_value.translate(bytes.maketrans(b"!?.:;,'", b"       "))
-           print(last_str_value.rsplit(None, 1)[-1], num_lines)
-           last_word = last_str_value.rsplit(None, 1)[-1]
-           print(last_word, num_lines)
-           rhyme_set.append(last_word) 
-           str_value = str_value.translate(bytes.maketrans(b"!?.:;,'", b"       ") ) 
-           str_value += line
+      for line in read_me:
+        line = line.lower()        
+        num_lines  += 1
+        last_str_value = line
+        print(len(last_str_value))
+        char_len += len(last_str_value)
+        char_len_sq += len(last_str_value)**2
+        if len(last_str_value) > 1 :
+          last_str_value = last_str_value.translate(bytes.maketrans(b"!?.:;,'", b"       "))
+          print(last_str_value.rsplit(None, 1)[-1], num_lines)
+          last_word = last_str_value.rsplit(None, 1)[-1]
+          print(last_word, num_lines)
+          rhyme_set.append(last_word)        
+        str_value += line
+        str_value = str_value.translate(bytes.maketrans(b"!?.:;,'", b"       ") ) 
 # filter text file form list and filtered string
-        str_value_filtered = str_value.splitlines()
-        str_value = ""
-        for phrases in str_value_filtered:
-            str_value += phrases + " "
+      str_value_filtered = str_value.splitlines()
+      str_value = ""
+      for phrases in str_value_filtered:
+        str_value += phrases + " "
     for i in range(len(rhyme_set)):
         print(i, ":", rhyme_set[i])
     list_read = [str_value,rhyme_set]
@@ -215,7 +218,7 @@ def write_sonnett(input_file, output_file):
     return 
 
 
-input_file="Sonnetts-large.txt"
+input_file="Sonnetts-large2.txt"
 output_file="markov_sonnet.txt"
 key_size=2
 markov_output_lines=14
